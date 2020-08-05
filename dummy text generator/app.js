@@ -15,9 +15,9 @@ const form = document.querySelector('#form');
 const amount = document.querySelector('#amount');
 const result = document.querySelector('#result');
 
+
 form.addEventListener('submit', function(event) {
   event.preventDefault()
-
   const value = parseInt(amount.value)
   const random = Math.floor(Math.random() * dummyText.length)
 
@@ -31,5 +31,6 @@ form.addEventListener('submit', function(event) {
     const finalArray = slicedArray.map(sigleDummy => `<p>${sigleDummy}</p>`).join(' ')
     result.innerHTML = finalArray
   }
+
   
 })
