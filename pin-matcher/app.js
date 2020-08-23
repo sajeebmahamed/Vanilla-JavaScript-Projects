@@ -19,6 +19,14 @@ calcBtn.forEach(single =>
             let res = single.innerHTML
             calcArr.push(res)
             let final = document.getElementById('calcPin').value = [...calcArr].join('')
+
+            
+            // todo:: not working
+            remove.addEventListener('click', () => {
+                calcArr.pop()
+            })
+
+            
         })
     )
 
@@ -27,16 +35,32 @@ valueFromBtn.addEventListener('click', function(e) {
     const randomValue = document.getElementById('displayPin').value
     const buttonValue = document.getElementById('calcPin').value
     if (Number(randomValue) === Number(buttonValue)) {
+        //show success message
         const success = document.getElementById('success')
+        const error = document.getElementById('error')
         success.style.display = 'block'
+        error.style.display = 'none'
         
+        // try message hide 
+        const tryMsg = document.querySelector('.action-left')
+        tryMsg.style.display = 'none'
     }
     else {
+        //show error message
         const error = document.getElementById('error')
+        const success = document.getElementById('success')
         error.style.display = 'block'
-        const actionTry = document.getElementsByClassName('action-left').innerHTML
-        console.log(actionTry);
+        success.style.display = 'none'
+
+        // try message show
+
+        const tryMsg = document.querySelector('.action-left')
+        tryMsg.style.display = 'block'
+        tryMsg.innerHTML = tryMsg.innerHTML - 1 + ' try left'
+        
+
     }
+    // clear input value 
     document.getElementById('calcPin').value = ''
     document.getElementById('displayPin').value = ''
     calcArr = []
