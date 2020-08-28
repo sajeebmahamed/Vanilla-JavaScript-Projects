@@ -3,6 +3,7 @@ const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const locationElement = document.querySelector(".location p");
 const notificationElement = document.querySelector(".notification");
+const fellsLike = document.querySelector('.fells-like')
 
 
 const weather = {};
@@ -63,7 +64,9 @@ function getWeather(latitude, longitude) {
             return data;
         })
         .then(function (data) {
+            console.log(data);
             weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+            weather.feels_like = Math.floor(data.main.feels_like - KELVIN);
             weather.description = data.weather[0].description;
             weather.iconId = data.weather[0].icon;
             weather.city = data.name;
@@ -79,4 +82,25 @@ function displayWeather() {
     tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
     descElement.innerHTML = weather.description;
     locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+    fellsLike.innerHTML = ` feels like :  ${weather.feels_like}°<span>C</span>`;
 }
+
+
+function celsiusToFahrenheit(temperature) {
+    return (temperature * 9 / 5) + 32;
+}
+
+tempElement.addEventListener("click", function () {
+    if (weather.temperature.value === undefined) return;
+
+    if (weather.temperature.unit == "celsius") {
+        let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
+        fahrenheit = Math.floor(fahrenheit);
+
+        tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
+        weather.temperature.unit = "fahrenheit";
+    } else {
+        tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+        weather.temperature.unit = "celsius"
+    }
+});
